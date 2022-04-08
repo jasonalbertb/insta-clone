@@ -36,7 +36,7 @@ const Signup = () => {
       setSubmitDisabled(true);
       await createUser({ email, password, fullname, username});
     } catch (error) {
-      setModalMsg(error);
+      setModalMsg(error.message);
       setSubmitLoading(false);
     }
   }
