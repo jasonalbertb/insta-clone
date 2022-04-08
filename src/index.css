@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.floatingInput input:focus-within ~ label, 
+.floatingInput  input:not(:placeholder-shown) ~ label{
+    @apply transform scale-75 translate-y-[-12px]
+}
+
+.chat-form input:not(:placeholder-shown) ~ div{
+    @apply hidden
+}
+.chat-form input:not(:placeholder-shown) ~ button[type=submit]{
+    @apply block
+}
+
+.chat-form input:placeholder-shown ~ button[type=submit]{
+    @apply hidden
+}
+.chat-form input:placeholder-shown ~ div{
+    @apply flex
+}
