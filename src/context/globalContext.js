@@ -6,12 +6,12 @@ export const AppProvider = ({children})=>{
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(false);
     const [isFirebaseInitialized, setIsFirebaseInitialized] = useState(false);
-    const [userEmail, setUserEmail] = useState(null); 
+    const [user, setUser] = useState(null); 
     return( 
         <AppContext.Provider value={{
             isLoading, setIsLoading,
             isFirebaseInitialized, setIsFirebaseInitialized,
-            userEmail, setUserEmail,
+            user, setUser,
             error, setError
         }}>{children}
         </AppContext.Provider>

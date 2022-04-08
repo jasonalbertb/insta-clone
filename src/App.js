@@ -26,7 +26,7 @@ const NotFound = React.lazy(()=> import("./pages/NotFound"));
 const Error = React.lazy(()=> import("./pages/Error"));
 
 export const App =  ()=> {
-  const { userEmail, isLoading, isFirebaseInitialized} = useGlobalContext();
+  const { user, isLoading, isFirebaseInitialized} = useGlobalContext();
   
   useFirebaseInit();
   useAuthChanged();
@@ -40,10 +40,10 @@ export const App =  ()=> {
       <BrowserRouter>
         <Routes>
             <Route path='/'>
-              <Route path={ROUTES.LOGIN} element={userEmail? <Navigate to={ROUTES.DASHBOARD}/>:  <Login />} />
-              <Route path={ROUTES.SIGN_UP} element={userEmail? <Navigate to={ROUTES.DASHBOARD}/>: <Signup />}/>
+              <Route path={ROUTES.LOGIN} element={user? <Navigate to={ROUTES.DASHBOARD}/>:  <Login />} />
+              <Route path={ROUTES.SIGN_UP} element={user? <Navigate to={ROUTES.DASHBOARD}/>: <Signup />}/>
 
-              <Route element={<ProtectedRoute user={userEmail}/>}>
+              <Route element={<ProtectedRoute user={user}/>}>
                 <Route index element={<Dashboard />} />
                 <Route path={ROUTES.PROFILE_ROUTE} element={ <Profile />  } />
                 <Route path={ROUTES.FOLLOWING_PAGE_ROUTE} element={< FollowingPage />}/>

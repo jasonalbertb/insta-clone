@@ -1,10 +1,10 @@
 import  { useEffect } from 'react'
 import {useGlobalContext} from "../context/globalContext";
-import {getAuth, onAuthStateChanged,updateProfile} from "firebase/auth";
+import {getAuth, onAuthStateChanged} from "firebase/auth";
 import {getUserDataByUserId} from "../services/firebase";
 
 export const useAuthChanged = () => {
-    const {isFirebaseInitialized, setUserEmail, setIsLoading} = useGlobalContext();
+    const {isFirebaseInitialized, setUser, setIsLoading} = useGlobalContext();
 
     return (
         useEffect(()=>{
@@ -15,16 +15,11 @@ export const useAuthChanged = () => {
                         const unsub = onAuthStateChanged(auth, async(user)=>{
                             setIsLoading(true);
                             if (user) {    
-                                if (!user.displayName || !user.photoURL) {
-                                    const userData =  await getUserDataByUserId(user.uid);
-                                    await updateProfile(auth.currentUser, {
-                                        displayName: userData.username,
-                                        photoURL: userData.profilePic
-                                    })
-                                }
-                                setUserEmail(user.email);
+                                const userData =  await getUserDataByUserId(user.uid);  
+                                const {username, profilePic} = userData;
+                                setUser({username, profilePic});
                             }else{
-                                setUserEmail(null);
+                                setUser(null);
                             }
                             setIsLoading(false);
                         })
@@ -36,6 +31,6 @@ export const useAuthChanged = () => {
                     console.log(error);
                 }
            })();
-        }, [isFirebaseInitialized, setIsLoading, setUserEmail])
+        }, [isFirebaseInitialized, setIsLoading, setUser])
     );
 }

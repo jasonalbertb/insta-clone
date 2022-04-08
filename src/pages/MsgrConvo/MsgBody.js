@@ -2,7 +2,7 @@ import React, {useEffect, useState, useRef} from 'react'
 import {getAuth} from "firebase/auth";
 import {collection, query, onSnapshot, getFirestore, orderBy} from "firebase/firestore";
 import moment from "moment";
-export const MsgBody = ({chatToId}) => {
+export const MsgBody = ({chatToId, chatUserdata}) => {
   const [messages, setMessages] = useState([]);
   const {uid} = getAuth().currentUser;
   const messagesEndRef = useRef(null);
@@ -36,7 +36,12 @@ export const MsgBody = ({chatToId}) => {
       {messages.map((message, i)=>{
         return(
           <li key={message.id} className={`mb-2`}>
-                <p className={`flex ${message.by===uid? "flex-row-reverse": "flex-row"}`}> 
+                <p className={`flex items-center ${message.by===uid? "flex-row-reverse": "flex-row"}`}> 
+                  {(message.by!==uid && 
+                    <img 
+                      className='w-8 h-8 mr-2 rounded-full'
+                      src={chatUserdata.profilePic} alt={chatUserdata.username}/>
+                  )}
                   <h4 className={`px-4 py-1 rounded-full flex-0 ${message.by===uid? "bg-sky-500 text-white": "bg-gray-200 text-black"}`}>
                     {message.content}
                   </h4>

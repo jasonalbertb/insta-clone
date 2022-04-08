@@ -84,7 +84,7 @@ const MsgrConvo = () => {
           <button><HiOutlineInformationCircle className='w-8 h-8'/></button>
         </div>
       </div>
-      <MsgBody chatToId={id}/>
+      <MsgBody chatUserdata={chatUserdata} chatToId={id}/>
       <div className='fixed bottom-0 w-full z-50 bg-white'>
         <form
           className='relative px-4 py-2 chat-form' 
